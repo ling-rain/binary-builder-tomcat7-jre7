@@ -1,12 +1,12 @@
-# This image provides a base for building and running WildFly applications.
-# It builds using maven and runs the resulting artifacts on WildFly 10.0.0 Final
+# This image provides a base for building and running java applications.
+# It builds using maven and runs the resulting artifacts on Tomcat7.0.72
 
 FROM openshift/base-centos7
 
-MAINTAINER Ben Parees <bparees@redhat.com>
+MAINTAINER Yilisa <915961521@qq.com>
 
 EXPOSE 8080
-EXPOSE 8009 
+
 ENV TOMCAT_VERSION=7.0.72 \
     MAVEN_VERSION=3.3.9 \
     CATALINA_HOME=/usr/local/tomcat \
@@ -29,12 +29,6 @@ RUN INSTALL_PKGS="bc java-1.7.0-openjdk java-1.7.0-openjdk-devel" && \
     mv /usr/local/apache-tomcat-7.0.72 $CATALINA_HOME && \
     rm -fr $CATALINA_HOME/webapps/* && \  
     mkdir -p /opt/s2i/destination
-
-# Add s2i wildfly customizations
-#ADD ./contrib/wfmodules/ /wildfly/modules/
-#ADD ./contrib/wfbin/standalone.conf /wildfly/bin/standalone.conf
-#ADD ./contrib/wfcfg/standalone.xml /wildfly/standalone/configuration/standalone.xml
-#ADD ./contrib/settings.xml $HOME/.m2/
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./.s2i/bin/ $STI_SCRIPTS_PATH
