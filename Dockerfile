@@ -8,18 +8,17 @@ MAINTAINER Yilisa <915961521@qq.com>
 EXPOSE 8080
 
 ENV TOMCAT_VERSION=7.0.72 \
-    MAVEN_VERSION=3.3.9 \
     CATALINA_HOME=/usr/local/tomcat \
     PATH=$CATALINA_HOME/bin:$PATH  
 
 
-LABEL io.k8s.description="Platform for building and running JEE applications on Tomcat7.0.72" \
+LABEL io.k8s.description="Platform for building and running Java applications on Tomcat7.0.72" \
       io.k8s.display-name="Tomcat7.0.72" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,tomcat,tomcat7,maven,java7" \
+      io.openshift.tags="builder,binary,tomcat7,java7" \
       io.openshift.s2i.destination="/opt/s2i/destination" 
 
-ADD apache-tomcat.tar.gz /usr/local/
+ADD apache-tomcat-7.0.72.tar.gz /usr/local/
 
 # Install Tomcat7.0.72
 RUN INSTALL_PKGS="bc java-1.7.0-openjdk java-1.7.0-openjdk-devel" && \
@@ -30,9 +29,8 @@ RUN INSTALL_PKGS="bc java-1.7.0-openjdk java-1.7.0-openjdk-devel" && \
     rm -fr $CATALINA_HOME/webapps/* && \  
     mkdir -p /opt/s2i/destination
 
-# Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
+# Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH (/usr/local/s2i)
 COPY ./.s2i/bin/ $STI_SCRIPTS_PATH
-#COPY ./.s2i/bin/ /usr/local/s2i
 
 RUN chown -R 1001:0 $CATALINA_HOME && chown -R 1001:0 $HOME && \
     chmod -R ug+rw $CATALINA_HOME && \ 

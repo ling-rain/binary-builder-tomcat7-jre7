@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cat <<EOF
+This is an S2I binary Tomcat v7.0.72 centos base image responsible for consuming a Java project
+and deploying it onto Tomcat7 application server.
+To use it, install S2I: https://github.com/openshift/source-to-image
+
+EOF
