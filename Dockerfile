@@ -13,7 +13,7 @@ ENV TOMCAT_VERSION=7.0.72 \
 
 
 LABEL io.k8s.description="Platform for building and running Java applications on Tomcat7.0.72" \
-      io.k8s.display-name="Tomcat7.0.72" \
+      io.k8s.display-name="Tomcat 7.0.72" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,binary,tomcat7,java7" \
       io.openshift.s2i.destination="/opt/s2i/destination" 
